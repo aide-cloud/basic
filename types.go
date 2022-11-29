@@ -4,7 +4,7 @@ type UInt interface {
 	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
 }
 
-type Int interface {
+type HInt interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64
 }
 
@@ -13,35 +13,25 @@ type Float interface {
 }
 
 type Number interface {
-	UInt | Int | Float
+	UInt | HInt | Float
 }
 
 type Complex interface {
 	~complex64 | ~complex128
 }
 
-type String interface {
-	~string
-}
+type String string
 
-type Bool interface {
-	~bool
-}
+type Bool bool
 
-type Byte interface {
-	~byte
-}
+type Byte byte
 
-type Rune interface {
-	~rune
-}
+type Rune rune
 
-type Any interface {
-	any
-}
+type Any any
 
 type Comparable interface {
-	Number | String | Bool | Byte | Rune
+	Number | String | Byte | Rune
 }
 
 type Basic interface {

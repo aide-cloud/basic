@@ -190,7 +190,9 @@ func TestInSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := InSlice(tt.args.slice, tt.args.value); got != tt.want {
+			if got := InSlice(tt.args.slice, tt.args.value, func(i, j int) bool {
+				return i < j
+			}); got != tt.want {
 				t.Errorf("InSlice() = %v, want %v", got, tt.want)
 			}
 		})
@@ -338,6 +340,113 @@ func TestRemoveAnySlice(t *testing.T) {
 				return i == v
 			}); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("RemoveAnySlice() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestQuickSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test quick sort",
+			args: args{
+				slice: []int{1, 2, 3},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test quick sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if QuickSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			}); !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("QuickSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestMergeSlice(t *testing.T) {
+	type args struct {
+		slice1 []int
+		slice2 []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test merge slice",
+			args: args{
+				slice1: []int{1, 2, 3},
+				slice2: []int{1, 2, 3, 4},
+			},
+			want: []int{1, 2, 3, 1, 2, 3, 4},
+		},
+		{
+			name: "test merge slice",
+			args: args{
+				slice1: []int{1, 2, 3},
+				slice2: []int{1, 2},
+			},
+			want: []int{1, 2, 3, 1, 2},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeSlice(tt.args.slice1, tt.args.slice2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MergeSlice() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestBinarySearch(t *testing.T) {
+	type args struct {
+		slice []int
+		value int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "test binary search",
+			args: args{
+				slice: []int{1, 2, 3},
+				value: 1,
+			},
+			want: 0,
+		},
+		{
+			name: "test binary search",
+			args: args{
+				slice: []int{1, 2, 3},
+				value: 4,
+			},
+			want: -1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := BinarySearch[int](tt.args.slice, tt.args.value); got != tt.want {
+				t.Errorf("BinarySearch() = %v, want %v", got, tt.want)
 			}
 		})
 	}
