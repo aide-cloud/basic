@@ -487,3 +487,327 @@ func TestInsertSort(t *testing.T) {
 		})
 	}
 }
+
+func TestBubbleSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test bubble sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test bubble sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			BubbleSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("BubbleSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestSelectSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test select sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test select sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			SelectSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("SelectSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestSelectSort2(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test select sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{3, 2, 1},
+		},
+		{
+			name: "test select sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			SelectSort[int](tt.args.slice, func(i, t int) bool {
+				return i > t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("SelectSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestShellSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test shell sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test shell sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ShellSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("ShellSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestShellSort2(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test shell sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{3, 2, 1},
+		},
+		{
+			name: "test shell sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ShellSort[int](tt.args.slice, func(i, t int) bool {
+				return i > t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("ShellSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestHeapSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test heap sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test heap sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			HeapSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("HeapSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestHeapSort2(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test heap sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{3, 2, 1},
+		},
+		{
+			name: "test heap sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			HeapSort[int](tt.args.slice, func(i, t int) bool {
+				return i > t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("HeapSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestMergeSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test merge sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test merge sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			MergeSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("MergeSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
+
+func TestMergeSort2(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test merge sort",
+			args: args{
+				slice: []int{1, 3, 2},
+			},
+			want: []int{3, 2, 1},
+		},
+		{
+			name: "test merge sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{3, 2, 1},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			MergeSort[int](tt.args.slice, func(i, t int) bool {
+				return i > t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("MergeSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}
