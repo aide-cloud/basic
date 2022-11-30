@@ -168,3 +168,12 @@ func BinarySearch[T Comparable](a []T, x T) int {
 
 	return -1
 }
+
+// InsertSort 插入排序
+func InsertSort[T Comparable](a []T, less func(i, j T) bool) {
+	for i := 1; i < len(a); i++ {
+		for j := i; j > 0 && less(a[j], a[j-1]); j-- {
+			a[j], a[j-1] = a[j-1], a[j]
+		}
+	}
+}

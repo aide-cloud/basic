@@ -451,3 +451,39 @@ func TestBinarySearch(t *testing.T) {
 		})
 	}
 }
+
+func TestInsertSort(t *testing.T) {
+	type args struct {
+		slice []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "test insert sort",
+			args: args{
+				slice: []int{1, 2, 3},
+			},
+			want: []int{1, 2, 3},
+		},
+		{
+			name: "test insert sort",
+			args: args{
+				slice: []int{3, 2, 1},
+			},
+			want: []int{1, 2, 3},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			InsertSort[int](tt.args.slice, func(i, t int) bool {
+				return i < t
+			})
+			if !reflect.DeepEqual(tt.args.slice, tt.want) {
+				t.Errorf("InsertSort() = %v, want %v", tt.args.slice, tt.want)
+			}
+		})
+	}
+}

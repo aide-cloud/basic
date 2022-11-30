@@ -34,6 +34,10 @@ type Comparable interface {
 	Number | String | Byte | Rune
 }
 
+type Equatable interface {
+	Comparable | Bool | Complex
+}
+
 type Basic interface {
 	Comparable | Complex | Any
 }
