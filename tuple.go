@@ -5,18 +5,35 @@ import (
 )
 
 type (
+	SortFun[T Any] func(a []T, less SortSliceLessFunc[T])
+
 	Tuple[V Equatable] struct {
-		m map[V]bool
+		m    map[V]bool
+		sort SortFun[V]
 
 		lock sync.RWMutex
 	}
+
+	TupleOption[V Equatable] func(*Tuple[V])
 )
 
-// NewTuple returns a new Tuple.
-func NewTuple[V Equatable]() *Tuple[V] {
-	return &Tuple[V]{
-		m: make(map[V]bool),
+// WithSort sets the sort function for the Tuple.
+func WithSort[V Equatable](sort SortFun[V]) TupleOption[V] {
+	return func(t *Tuple[V]) {
+		t.sort = sort
 	}
+}
+
+// NewTuple returns a new Tuple.
+func NewTuple[V Equatable](opts ...TupleOption[V]) *Tuple[V] {
+	tu := &Tuple[V]{
+		m:    make(map[V]bool),
+		sort: QuickSort[V],
+	}
+	for _, opt := range opts {
+		opt(tu)
+	}
+	return tu
 }
 
 // Add adds a value to the Tuple.
@@ -74,6 +91,13 @@ func (t *Tuple[V]) Values() []V {
 		values = append(values, v)
 	}
 	return values
+}
+
+// SortValues sorts the values in the Tuple using the provided less function.
+func (t *Tuple[V]) SortValues(less SortSliceLessFunc[V]) []V {
+	res := t.Values()
+	t.sort(res, less)
+	return res
 }
 
 // Range calls f sequentially for each value present in the Tuple.

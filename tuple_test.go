@@ -87,3 +87,40 @@ func TestTuple_Range(t1 *testing.T) {
 		t1.Error("TestTuple_Range failed")
 	}
 }
+
+func TestTuple_SortValues(t1 *testing.T) {
+	t := NewTuple[int]()
+	t.Add(1)
+	t.Add(2)
+	t.Add(3)
+	t.Add(4)
+	values := t.SortValues(func(i, j int) bool {
+		return i > j
+	})
+	if len(values) != 4 {
+		t1.Error("TestTuple_SortValues failed")
+	}
+
+	if values[0] != 4 && values[1] != 3 && values[2] != 2 && values[3] != 1 {
+		t1.Error("TestTuple_SortValues failed")
+	}
+}
+
+func TestTuple_SortValues2(t1 *testing.T) {
+	t := NewTuple[int]()
+	t.Add(1)
+	t.Add(4)
+	t.Add(3)
+	t.Add(2)
+
+	values := t.SortValues(func(i, j int) bool {
+		return i < j
+	})
+	if len(values) != 4 {
+		t1.Error("TestTuple_SortValues failed")
+	}
+
+	if values[0] != 1 && values[1] != 2 && values[2] != 3 && values[3] != 4 {
+		t1.Error("TestTuple_SortValues failed")
+	}
+}
